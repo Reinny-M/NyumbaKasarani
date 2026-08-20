@@ -42,15 +42,15 @@ export default function Footer() {
 
           <div className="flex items-center gap-3 text-sm mb-3">
             <span>📞</span>
-            <span>+254 714 115 838</span>
+            <span>0798 791 235</span>
           </div>
           <div className="flex items-center gap-3 text-sm mb-6">
             <span>✉️</span>
-            <span>info@nyumbacheck.co.ke</span>
+            <span>reinhardcarlton5@gmail.com</span>
           </div>
 
           <div className="flex gap-4">
-            <a
+            
               href="https://www.linkedin.com/in/reinhard-babere-a56a833b0/"
               target="_blank"
               rel="noopener noreferrer"
@@ -90,7 +90,7 @@ export default function Footer() {
         <span>Copyright © 2026 NyumbaCheck. All rights reserved.</span>
         <span className="flex items-center gap-3">
           Designed and Developed by{" "}
-          <a
+          
             href="https://www.linkedin.com/in/reinhard-babere-a56a833b0/"
             target="_blank"
             rel="noopener noreferrer"
