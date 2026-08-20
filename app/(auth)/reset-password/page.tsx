@@ -1,14 +1,11 @@
-// app/(auth)/reset-password/page.tsx
 "use client";
-
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || "";
-
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -18,21 +15,17 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     const res = await fetch("/api/auth/reset-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, newPassword: password }),
     });
-
     const data = await res.json();
     setLoading(false);
-
     if (!res.ok) {
       setError(data.error || "Something went wrong.");
       return;
     }
-
     setSuccess(true);
     setTimeout(() => router.push("/login"), 2000);
   }
@@ -49,14 +42,12 @@ export default function ResetPasswordPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
         <h1 className="text-3xl font-bold text-navy mb-6">Set a New Password</h1>
-
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
         {success && (
           <p className="text-green-600 text-sm mb-4">
             Password updated — redirecting you to login...
           </p>
         )}
-
         {!success && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -79,5 +70,13 @@ export default function ResetPasswordPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
