@@ -1,7 +1,6 @@
-// app/properties/page.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PropertyCard from "@/components/PropertyCard";
 
@@ -15,7 +14,7 @@ const CATEGORIES = [
   { value: "office", label: "Offices" },
 ];
 
-export default function PropertiesPage() {
+function PropertiesContent() {
   const searchParams = useSearchParams();
   const [category, setCategory] = useState(searchParams.get("category") || "");
   const [subLocationId, setSubLocationId] = useState(searchParams.get("subLocationId") || "");
@@ -201,5 +200,13 @@ export default function PropertiesPage() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
+      <PropertiesContent />
+    </Suspense>
   );
 }
